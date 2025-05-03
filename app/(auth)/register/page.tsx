@@ -101,7 +101,11 @@ export default function Register() {
               </FormItem>
             )}
           />
-          <Button type="submit" className="cursor-pointer w-full">
+          <Button
+            type="submit"
+            variant={"custom"}
+            className="cursor-pointer w-full "
+          >
             Submit
           </Button>
         </form>
