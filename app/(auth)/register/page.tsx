@@ -15,6 +15,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
+import { log } from "console";
 
 const FormSchema = z.object({
   firstName: z.string().min(2),
@@ -37,7 +38,8 @@ export default function Register() {
   });
 
   function onSubmit(data: z.infer<typeof FormSchema>) {
-    alert("form submitted");
+    console.log(data);
+    form.reset();
   }
 
   return (
@@ -116,7 +118,7 @@ export default function Register() {
       </Form>
       <div className="flex gap-3 text-[0.8rem] justify-center">
         <p className="opacity-48">Already have account?</p>
-        <Link href={"/register"} className="text-blue-600 font-bold">
+        <Link href={"/login"} className="text-blue-600 font-bold">
           Login
         </Link>
       </div>

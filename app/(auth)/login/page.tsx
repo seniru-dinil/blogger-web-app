@@ -47,11 +47,12 @@ export default function Login() {
     } catch (error: any) {
       setError(error.toString());
     } finally {
+      form.reset();
       setLoading(false);
     }
   }
   return (
-    <div className="w-[350px] sm:w-[400px] flex justify-center items-center border border-blue-400/40 rounded-2xl ">
+    <div className="w-[350px] sm:w-[400px] flex justify-center items-center ">
       <div className="grid gap-9 px-8  pt-8  pb-3  place-items-center ">
         <div className="text-center grid gap-7">
           <h1 className="text-3xl">Hello Again!</h1>
