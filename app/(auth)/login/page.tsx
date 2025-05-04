@@ -39,6 +39,7 @@ export default function Login() {
     try {
       setLoading(true);
       setError(null);
+      console.log(values);
       await login({
         username: values.username,
         password: values.password,

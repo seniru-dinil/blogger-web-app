@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -42,8 +41,13 @@ export default function Register() {
   }
 
   return (
-    <>
-      <h1 className="text-3xl mb-8 text-center font-semibold">Register</h1>
+    <div className="grid gap-7 sm:w-[350px] w-[350px] place-items-center">
+      <div className="text-center grid gap-7">
+        <h1 className="text-3xl">Register yourself !</h1>
+        <p className="opacity-30">
+          Join a community of thinkers, storytellers, and creators.
+        </p>
+      </div>
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
@@ -110,7 +114,12 @@ export default function Register() {
           </Button>
         </form>
       </Form>
-      <Link href={"/login"}>already have accout? LOGIN</Link>
-    </>
+      <div className="flex gap-3 text-[0.8rem] justify-center">
+        <p className="opacity-48">Already have account?</p>
+        <Link href={"/register"} className="text-blue-600 font-bold">
+          Login
+        </Link>
+      </div>
+    </div>
   );
 }
