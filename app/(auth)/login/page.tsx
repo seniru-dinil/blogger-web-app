@@ -51,60 +51,54 @@ export default function Login() {
     }
   }
   return (
-    <div className="w-[350px] sm:w-[400px] flex justify-center items-center ">
-      <div className="grid gap-9 px-8  pt-8  pb-3  place-items-center ">
-        <div className="text-center grid gap-7">
-          <h1 className="text-3xl">Hello Again!</h1>
-          <p className="opacity-30">
-            Welcome back! Sign in to join the conversation, explore new ideas,
-            and share your voice with the world.
-          </p>
-        </div>
-        <div className="w-[300px] sm:w-[340px]  ">
-          <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-              <FormField
-                control={form.control}
-                name="username"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Username</FormLabel>
-                    <FormControl>
-                      <Input placeholder="shadcn" {...field} />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="password"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Password</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="password"
-                        {...field}
-                        type="password"
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <Button variant={"custom"} type="submit">
-                Submit
-              </Button>
-            </form>
-          </Form>
-        </div>
-        <div className="flex gap-3 text-[0.8rem]">
-          <p className="opacity-48">Don't have an accout?</p>
-          <Link href={"/register"} className="text-blue-600 font-bold">
-            Sign Up
-          </Link>
-        </div>
+    <div className="grid gap-7 sm:w-[350px] w-[350px] place-items-center">
+      <div className="text-center grid gap-7">
+        <h1 className="text-3xl">Hello Again!</h1>
+        <p className="opacity-30">
+          Welcome back! Sign in to join the conversation, explore new ideas, and
+          share your voice with the world.
+        </p>
+      </div>
+      <div className="w-[300px] sm:w-[340px]  ">
+        <Form {...form}>
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+            <FormField
+              control={form.control}
+              name="username"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Username</FormLabel>
+                  <FormControl>
+                    <Input placeholder="shadcn" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="password"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Password</FormLabel>
+                  <FormControl>
+                    <Input placeholder="password" {...field} type="password" />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <Button variant={"custom"} type="submit">
+              Submit
+            </Button>
+          </form>
+        </Form>
+      </div>
+      <div className="flex gap-3 text-[0.8rem]">
+        <p className="opacity-48">Don't have an accout?</p>
+        <Link href={"/register"} className="text-blue-600 font-bold">
+          Sign Up
+        </Link>
       </div>
     </div>
   );
