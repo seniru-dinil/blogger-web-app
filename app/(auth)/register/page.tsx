@@ -16,6 +16,7 @@ import {
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
 import { log } from "console";
+import { createUser } from "@/services/user.service";
 
 const FormSchema = z.object({
   firstName: z.string().min(2),
@@ -37,9 +38,13 @@ export default function Register() {
     },
   });
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    console.log(data);
-    form.reset();
+  async function onSubmit(data: z.infer<typeof FormSchema>) {
+    try {
+      await createUser(data);
+    } catch (error) {
+    } finally {
+      form.reset();
+    }
   }
 
   return (
