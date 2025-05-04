@@ -16,6 +16,7 @@ import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { login } from "@/services/auth.service";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   username: z.string().email().max(50),
@@ -27,6 +28,7 @@ const formSchema = z.object({
 export default function Login() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<null | string>(null);
+  const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -39,6 +41,7 @@ export default function Login() {
     try {
       setLoading(true);
       setError(null);
+      localStorage.setItem("token", "this is token");
       await login({
         username: values.username,
         password: values.password,
@@ -51,49 +54,50 @@ export default function Login() {
     }
   }
   return (
-    <div className="grid gap-7 sm:w-[350px] w-[350px] place-items-center">
-      <div className="text-center grid gap-7">
+    <div className="grid gap-7 w-[300px] sm:w-[350px]   place-items-center">
+      <div className="place-items-center grid gap-7">
         <h1 className="text-3xl">Hello Again!</h1>
-        <p className="opacity-30">
+        <p className="opacity-30 text-center">
           Welcome back! Sign in to join the conversation, explore new ideas, and
           share your voice with the world.
         </p>
       </div>
-      <div className="w-[300px] sm:w-[340px]  ">
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-            <FormField
-              control={form.control}
-              name="username"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Username</FormLabel>
-                  <FormControl>
-                    <Input placeholder="shadcn" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="password"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Password</FormLabel>
-                  <FormControl>
-                    <Input placeholder="password" {...field} type="password" />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <Button variant={"custom"} type="submit">
-              Submit
-            </Button>
-          </form>
-        </Form>
-      </div>
+      <Form {...form}>
+        <form
+          onSubmit={form.handleSubmit(onSubmit)}
+          className="space-y-6 w-full"
+        >
+          <FormField
+            control={form.control}
+            name="username"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Username</FormLabel>
+                <FormControl>
+                  <Input placeholder="shadcn" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Password</FormLabel>
+                <FormControl>
+                  <Input placeholder="password" {...field} type="password" />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <Button variant={"custom"} type="submit">
+            Submit
+          </Button>
+        </form>
+      </Form>
       <div className="flex gap-3 text-[0.8rem]">
         <p className="opacity-48">Don't have an accout?</p>
         <Link href={"/register"} className="text-blue-600 font-bold">

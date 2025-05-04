@@ -8,7 +8,7 @@ export default function LoginLayout({
 }) {
   return (
     <div className="flex items-center justify-center h-screen gap-10">
-      <Image src={"/bg-1.png"} alt="image" width={450} height={600} />
+      {/* <Image src={"/bg-1.png"} alt="image" width={450} height={600} /> */}
       {children}
     </div>
   );

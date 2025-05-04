@@ -122,7 +122,7 @@ export default function Register() {
         </form>
       </Form>
       <div className="flex gap-3 text-[0.8rem] justify-center">
-        <p className="opacity-48">Already have account?</p>
+        <p className="opacity-48">Already have an account?</p>
         <Link href={"/login"} className="text-blue-600 font-bold">
           Login
         </Link>
