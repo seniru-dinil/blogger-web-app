@@ -17,7 +17,8 @@ import { useState } from "react";
 import { login } from "@/services/auth.service";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { json } from "stream/consumers";
+import { Loader2 } from "lucide-react";
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 
 const formSchema = z.object({
   username: z.string().email().max(50),
@@ -27,8 +28,7 @@ const formSchema = z.object({
 });
 
 export default function Login() {
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<null | string>(null);
+  const [loginError, setLoginError] = useState<string | null>(null);
   const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -38,27 +38,35 @@ export default function Login() {
     },
   });
 
+  const { isSubmitting, isSubmitSuccessful } = form.formState;
+
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
-      setLoading(true);
-      setError(null);
+      setLoginError(null);
       localStorage.setItem("token", "this is token");
       const roles = ["ROLE_VISITOR"];
       localStorage.setItem("role", JSON.stringify(roles));
-      router.replace("/");
       await login({
         username: values.username,
         password: values.password,
       });
+      router.replace("/");
     } catch (error: any) {
-      setError(error.toString());
+      const message =
+        error?.response?.data?.message || "Login failed. Try again.";
+      setLoginError(message);
     } finally {
       form.reset();
-      setLoading(false);
     }
   }
   return (
     <div className="grid gap-7 w-[300px] sm:w-[350px]   place-items-center">
+      {loginError && (
+        <Alert variant="destructive" className="bg-red-500/10">
+          <AlertTitle>Error</AlertTitle>
+          <AlertDescription>{loginError}</AlertDescription>
+        </Alert>
+      )}
       <div className="place-items-center grid gap-7">
         <h1 className="text-3xl">Hello Again!</h1>
         <p className="opacity-30 text-center">
@@ -97,8 +105,9 @@ export default function Login() {
               </FormItem>
             )}
           />
-          <Button variant={"custom"} type="submit">
-            Submit
+          <Button variant={"custom"} type="submit" disabled={isSubmitting}>
+            {isSubmitting && <Loader2 className="animate-spin" />}
+            submit
           </Button>
         </form>
       </Form>

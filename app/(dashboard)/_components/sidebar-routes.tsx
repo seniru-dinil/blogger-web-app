@@ -18,13 +18,13 @@ const publisherRoutes = [
   },
   {
     label: "Profile",
-    path: "/user/1",
+    path: "/profile",
     icon: UserRoundPen,
   },
 
   {
     label: "Library",
-    path: "/articles",
+    path: "/library",
     icon: Newspaper,
   },
   {
@@ -52,13 +52,12 @@ const userRoutes = [
   },
   {
     label: "Profile",
-    path: "/user/1",
+    path: "/profile",
     icon: UserRoundPen,
   },
-
   {
     label: "Library",
-    path: "/articles",
+    path: "/library",
     icon: Newspaper,
   },
   {
