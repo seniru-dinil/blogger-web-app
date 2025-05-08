@@ -1,3 +1,4 @@
+"use client";
 import { cn } from "@/lib/utils";
 import { LucideIcon } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
@@ -21,7 +22,7 @@ export default function SideBarItem({
     <div className="w-full flex">
       <button
         className={cn(
-          "py-3.5 text-sm font-[500] hover:bg-slate-300/20 hover:text-slate-600 transition-all flex items-center  gap-4 text-slate-500 pl-8 w-full cursor-pointer",
+          "py-3.5 text-sm font-[500] hover:bg-slate-300/20 hover:text-slate-700/90 transition-all flex items-center  gap-5 text-slate-500 pl-8 w-full cursor-pointer",
           isActive &&
             "bg-sky-200/20 hover:bg-sky-200/20 text-sky-700 hover:text-sky-700"
         )}

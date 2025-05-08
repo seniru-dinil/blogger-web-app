@@ -17,6 +17,7 @@ import { useState } from "react";
 import { login } from "@/services/auth.service";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { json } from "stream/consumers";
 
 const formSchema = z.object({
   username: z.string().email().max(50),
@@ -42,6 +43,9 @@ export default function Login() {
       setLoading(true);
       setError(null);
       localStorage.setItem("token", "this is token");
+      const roles = ["ROLE_VISITOR"];
+      localStorage.setItem("role", JSON.stringify(roles));
+      router.replace("/");
       await login({
         username: values.username,
         password: values.password,
