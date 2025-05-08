@@ -16,7 +16,8 @@ export default function SideBarItem({
 }: SideBarItemProps) {
   const router = useRouter();
   const pathName = usePathname();
-  const isActive = path == pathName;
+  const isRoot = path === "/";
+  const isActive = isRoot ? path === pathName : pathName.startsWith(path);
 
   return (
     <div className="w-full flex">
