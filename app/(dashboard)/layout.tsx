@@ -16,9 +16,9 @@ export default function DashboardLayout({
         <div className="md:flex hidden h-full w-75  ">
           <Sidebar />
         </div>
-        <div className="w-full h-full">
+        <div className="w-full h-full  flex flex-col">
           <Navbar />
-          {children}
+          <div className="h-full">{children}</div>
         </div>
       </div>
     </AuthProvider>

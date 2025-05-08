@@ -57,6 +57,7 @@ export default function Login() {
       setLoginError(message);
     } finally {
       form.reset();
+      router.replace("/");
     }
   }
   return (
