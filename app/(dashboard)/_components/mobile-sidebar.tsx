@@ -1,0 +1,23 @@
+import {
+  Sheet,
+  SheetClose,
+  SheetContent,
+  SheetTrigger,
+} from "@/components/ui/sheet";
+import { Menu, X } from "lucide-react";
+import Sidebar from "./sidebar";
+
+const MobileSidebar = () => {
+  return (
+    <Sheet>
+      <SheetTrigger asChild className="md:hidden cursor-pointer">
+        <Menu />
+      </SheetTrigger>
+      <SheetContent side="left" className="">
+        <Sidebar />
+      </SheetContent>
+    </Sheet>
+  );
+};
+
+export default MobileSidebar;
