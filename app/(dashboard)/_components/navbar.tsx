@@ -22,11 +22,11 @@ export default function Navbar() {
   }
 
   function handleWrite() {
-    router.push("/publisher/create");
+    router.push("/publisher/articles/create");
   }
 
   return (
-    <div className="border-b-1 h-[70px] border-b-slate-50 flex items-center px-6 justify-between">
+    <div className="border-b-1 h-[70px] border-b-slate-50 flex items-center px-6 justify-between ">
       <MobileSidebar />
       {!pathName.split("/").includes("create") &&
         (isPublisher ? (
