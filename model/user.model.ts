@@ -4,5 +4,5 @@ export default interface User {
   password: string;
   firstName: string;
   lastName: string;
-  roles?: string[];
+  roles?: "ROLE_PUBLISHER" | "ROLE_VISITOR";
 }

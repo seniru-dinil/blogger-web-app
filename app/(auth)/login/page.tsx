@@ -19,6 +19,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
+import toast from "react-hot-toast";
 
 const formSchema = z.object({
   username: z.string().email().max(50),
@@ -43,13 +44,12 @@ export default function Login() {
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       setLoginError(null);
-      localStorage.setItem("token", "this is token");
-      const roles = ["ROLE_VISITOR"];
-      localStorage.setItem("role", JSON.stringify(roles));
-      await login({
-        username: values.username,
+      const response = await login({
+        email: values.username,
         password: values.password,
       });
+      localStorage.setItem("token", response.data.token);
+      localStorage.setItem("role", JSON.stringify(response.data.roles));
       router.replace("/");
     } catch (error: any) {
       const message =
@@ -57,7 +57,6 @@ export default function Login() {
       setLoginError(message);
     } finally {
       form.reset();
-      router.replace("/");
     }
   }
   return (

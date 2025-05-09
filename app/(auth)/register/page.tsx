@@ -15,8 +15,9 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import Link from "next/link";
-import { log } from "console";
 import { createUser } from "@/services/user.service";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 const FormSchema = z.object({
   firstName: z.string().min(2),
@@ -28,6 +29,7 @@ const FormSchema = z.object({
 });
 
 export default function Register() {
+  const router = useRouter();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -40,8 +42,11 @@ export default function Register() {
 
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     try {
-      await createUser(data);
+      const res = await createUser(data);
+      toast.success("user registration successfull");
+      router.replace("/login");
     } catch (error) {
+      toast.error("user registration failed");
     } finally {
       form.reset();
     }
