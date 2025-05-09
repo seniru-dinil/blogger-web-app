@@ -1,7 +1,7 @@
 import ArticleData from "./articleData.model";
 
 export default interface Article {
-  id: number;
+  id?: number;
   title: string;
   shortDescription: string;
   category: "TECH" | "ASTRONOMY" | "HEALTH" | "AUTO_MOBILE" | "TRAVEL";
