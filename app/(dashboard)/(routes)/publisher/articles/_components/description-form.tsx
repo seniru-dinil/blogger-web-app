@@ -38,6 +38,9 @@ export default function DescriptionForm({
   const { isSubmitting, isValid } = form.formState;
 
   const handleDiscard = () => {
+    if (initialData) {
+      form.resetField("description");
+    }
     form.reset();
   };
 

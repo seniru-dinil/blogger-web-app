@@ -58,68 +58,69 @@ export default function CreateArticle() {
 
   return (
     <div className="h-full ">
-      <div className="max-w-5xl  flex mx-auto md:items-center md:justify-center h-full p-6">
-        <div>
-          {step === 0 && (
-            <div>
-              <div className="mb-7">
-                <h1 className="text-2xl font-semibold ">Name your article</h1>
-                <p className="text-sm text-slate-500">
-                  What would you name your article? Don't worry you can change
-                  it later.
-                </p>
-              </div>
-              <TitleForm onSubmit={handleTitleFormSubmit} />
+      <div className="max-w-5xl  flex mx-auto md:items-center justify-center h-full p-6 ">
+        {step === 0 && (
+          <div>
+            <div className="mb-7">
+              <h1 className="text-2xl font-semibold ">Name your article</h1>
+              <p className="text-sm text-slate-500">
+                What would you name your article? Don't worry you can change it
+                later.
+              </p>
             </div>
-          )}
-          {step === 1 && (
-            <div>
-              <div className="mb-7">
-                <h1 className="text-2xl font-semibold ">Short Description</h1>
-                <p className="text-sm text-slate-500">
-                  Give a short description about what this article is about
-                </p>
-              </div>
-              <DescriptionForm onSubmit={handleDescriptionFormSubmit} />
+            <TitleForm onSubmit={handleTitleFormSubmit} />
+          </div>
+        )}
+        {step === 1 && (
+          <div>
+            <div className="mb-7">
+              <h1 className="text-2xl font-semibold ">Short Description</h1>
+              <p className="text-sm text-slate-500">
+                Give a short description about what this article is about
+              </p>
             </div>
-          )}
-          {step === 2 &&
-            (imgUrl != null ? (
-              isArticleImageLoading ? (
-                <Skeleton className="h-[125px] w-[250px] rounded-xl" />
-              ) : (
-                <div className="space-y-5">
-                  <h1 className="text-2xl font-semibold ">Article Image</h1>
-                  <ImageForm
-                    initialData={imgUrl}
-                    handleDiscard={() => {
-                      handleDiscard();
-                    }}
-                    handleDone={() => {
-                      setStep((prev) => prev + 1);
-                    }}
-                    onSubmit={(url, key) => {
-                      handleImageFormSubmit(url, key);
-                    }}
-                  />
-                </div>
-              )
+            <DescriptionForm
+              onSubmit={handleDescriptionFormSubmit}
+              initialData="hello world"
+            />
+          </div>
+        )}
+        {step === 2 &&
+          (imgUrl != null ? (
+            isArticleImageLoading ? (
+              <Skeleton className="h-[125px] w-[250px] rounded-xl" />
             ) : (
-              <div>
-                <div className="mb-7">
-                  <h1 className="text-2xl font-semibold ">Article Image</h1>
-                  <p className="text-sm text-slate-500">
-                    Add an image for the article
-                  </p>
-                </div>
+              <div className="space-y-5">
+                <h1 className="text-2xl font-semibold ">Article Image</h1>
                 <ImageForm
+                  initialData={imgUrl}
+                  handleDiscard={() => {
+                    handleDiscard();
+                  }}
+                  handleDone={() => {
+                    setStep((prev) => prev + 1);
+                  }}
                   onSubmit={(url, key) => {
                     handleImageFormSubmit(url, key);
                   }}
                 />
               </div>
-            ))}
-        </div>
+            )
+          ) : (
+            <div>
+              <div className="mb-7">
+                <h1 className="text-2xl font-semibold ">Article Image</h1>
+                <p className="text-sm text-slate-500">
+                  Add an image for the article
+                </p>
+              </div>
+              <ImageForm
+                onSubmit={(url, key) => {
+                  handleImageFormSubmit(url, key);
+                }}
+              />
+            </div>
+          ))}
       </div>
     </div>
   );

@@ -37,6 +37,7 @@ export default function TitleForm({ initialData, onSubmit }: TitleFormProps) {
   }
 
   const handleDiscard = () => {
+    if (initialData) form.resetField("title");
     form.reset();
   };
 
