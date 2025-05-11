@@ -84,15 +84,15 @@ export default function CreateArticle() {
           </div>
         )}
         {step === 2 && (
-          <div className="grid gap-5">
-            <h2>{title}</h2>
-            <h3>{description}</h3>
+          <div className="grid gap-5 max-w-3xl">
+            <h2 className="sm:text-4xl text-2xl font-bold">{title}</h2>
+            <h3 className="text-md text-slate-600">{description}</h3>
             <Button
               disabled={
                 step !== 2 || description.length == 0 || title.length == 0
               }
               onClick={handleCreateArticle}
-              className="mt-10"
+              className="mt-10 sm:w-1/2 xl:w-2/5 w-full "
             >
               create article
             </Button>
