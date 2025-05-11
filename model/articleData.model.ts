@@ -1,6 +1,8 @@
+import Image from "./Image.model";
+
 export default interface ArticleData {
-  id: number;
-  articleId: number;
-  description: string;
-  imageUrl: string;
+  id?: number;
+  article?: number;
+  content?: string;
+  image?: Image;
 }

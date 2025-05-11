@@ -1,18 +1,29 @@
 import ArticleData from "./articleData.model";
+import Comment from "./comment.model";
+import Image from "./Image.model";
 
 export default interface Article {
   id?: number;
   title: string;
-  shortDescription: string;
-  category: "TECH" | "ASTRONOMY" | "HEALTH" | "AUTO_MOBILE" | "TRAVEL";
+  description: string;
   authorId: number;
   authorName: string;
-  articleDataList: ArticleData[];
+  category?:
+    | "TECH"
+    | "JAVA"
+    | "PROGRAMMING"
+    | "LIFESTYLE"
+    | "TRAVEL"
+    | "TUTORIALS"
+    | "SPRING BOOT ";
+  articleDataList?: ArticleData[];
   createdAt?: string;
   updatedAt?: string;
   likeCount?: number;
-  commentList?: Comment[];
   commentCount?: number;
-  isActive: boolean;
+  commentList?: Comment[];
+  isActive?: boolean;
   isReported?: boolean;
+  isPremium?: boolean;
+  image?: Image;
 }
