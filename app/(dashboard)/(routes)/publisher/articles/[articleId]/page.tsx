@@ -1,6 +1,6 @@
 "use client";
 
-import { useAuth } from "@/context/authContext";
+import { Role, useAuth } from "@/context/authContext";
 import Article from "@/model/article.model";
 import { getArticle } from "@/services/article.service";
 import { redirect, useParams, useRouter } from "next/navigation";
@@ -9,7 +9,7 @@ import toast from "react-hot-toast";
 
 export default function EditArticle() {
   const router = useRouter();
-  const { role, email } = useAuth();
+  const role: Role[] = JSON.parse(localStorage.getItem("role") || "[]");
   const { articleId } = useParams();
   const [article, setArticle] = useState<Article | null>(null);
 
@@ -23,7 +23,6 @@ export default function EditArticle() {
           router.replace("/");
         }
       } catch (erro: any) {
-        console.log(erro);
         toast.error("error fetching article");
       }
     }
