@@ -35,7 +35,7 @@ export default function CreateArticle() {
   async function handleCreateArticle() {
     setErrors(null);
     try {
-      const response = await createArticle({
+      const { data } = await createArticle({
         authorId: id,
         authorName: email,
         description: description,
@@ -44,7 +44,7 @@ export default function CreateArticle() {
       setDescription("");
       setTitle("");
       toast.success("article created successfull");
-      router.replace(`/publisher/articles/${response.data.id}`);
+      router.replace(`/publisher/articles/${data.id}`);
     } catch (error: any) {
       if (error.response?.status === 400) {
         setErrors(error.response.data);

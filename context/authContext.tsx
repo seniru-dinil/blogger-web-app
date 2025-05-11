@@ -66,6 +66,10 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     setLoading(false);
   }, []);
 
+  useEffect(() => {
+    console.log("AUTH CHANGED", auth);
+  }, [auth]);
+
   if (loading) {
     return (
       <div className="flex flex-col space-y-3 p-8">

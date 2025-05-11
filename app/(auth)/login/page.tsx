@@ -42,18 +42,6 @@ export default function Login() {
 
   const { isSubmitting } = form.formState;
 
-  function testLogin() {
-    localStorage.setItem("token", "token token");
-    const role: Role[] = ["ROLE_VISITOR", "ROLE_PUBLISHER"];
-    setAuth({
-      email,
-      id,
-      isAuthenticated,
-      role,
-    });
-    localStorage.setItem("role", JSON.stringify(role));
-  }
-
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
       setLoginError(null);
@@ -63,6 +51,7 @@ export default function Login() {
       });
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("role", JSON.stringify(response.data.roles));
+      localStorage.setItem("id", response.data.id);
       setAuth({
         email: response.data.email,
         id: response.data.id,
