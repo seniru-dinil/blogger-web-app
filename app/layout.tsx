@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Nunito_Sans } from "next/font/google";
 import "./globals.css";
 import ToastProvider from "@/components/providers/toaster-provider";
+import { AuthProvider } from "@/context/authContext";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -22,10 +23,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={nunitoSans.className}>
-        <div className="h-full">
-          <ToastProvider />
-          {children}
-        </div>
+        <AuthProvider>
+          <div className="h-full">
+            <ToastProvider />
+            {children}
+          </div>
+        </AuthProvider>
       </body>
     </html>
   );
