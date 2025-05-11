@@ -14,12 +14,12 @@ import {
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
-import { login } from "@/services/auth.service";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
-import toast from "react-hot-toast";
+import { Role, useAuth } from "@/context/authContext";
+import { login } from "@/services/auth.service";
 
 const formSchema = z.object({
   username: z.string().email().max(50),
@@ -29,6 +29,7 @@ const formSchema = z.object({
 });
 
 export default function Login() {
+  const { setAuth, email, id, isAuthenticated } = useAuth();
   const [loginError, setLoginError] = useState<string | null>(null);
   const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
@@ -39,7 +40,19 @@ export default function Login() {
     },
   });
 
-  const { isSubmitting, isSubmitSuccessful } = form.formState;
+  const { isSubmitting } = form.formState;
+
+  function testLogin() {
+    localStorage.setItem("token", "token token");
+    const role: Role[] = ["ROLE_VISITOR", "ROLE_PUBLISHER"];
+    setAuth({
+      email,
+      id,
+      isAuthenticated,
+      role,
+    });
+    localStorage.setItem("role", JSON.stringify(role));
+  }
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     try {
@@ -50,6 +63,12 @@ export default function Login() {
       });
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("role", JSON.stringify(response.data.roles));
+      setAuth({
+        email: response.data.email,
+        id: response.data.id,
+        isAuthenticated: true,
+        role: response.data.roles,
+      });
       router.replace("/");
     } catch (error: any) {
       const message =
@@ -59,6 +78,7 @@ export default function Login() {
       form.reset();
     }
   }
+
   return (
     <div className="grid gap-7 w-[300px] sm:w-[350px]   place-items-center">
       {loginError && (
