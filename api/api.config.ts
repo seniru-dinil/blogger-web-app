@@ -24,5 +24,6 @@ export const URL = {
     DELETE_USER: "/api/users",
     LOGIN: "/api/users/login",
     GET_USER: "/api/users",
+    BECOME_PUBLISHER: "/api/users",
   },
 };

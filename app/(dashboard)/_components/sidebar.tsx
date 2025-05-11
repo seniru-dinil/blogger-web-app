@@ -13,6 +13,7 @@ export default function Sidebar() {
     localStorage.removeItem("token");
     localStorage.removeItem("role");
     localStorage.removeItem("id");
+    localStorage.removeItem("email");
     router.replace("/login");
   };
   return (

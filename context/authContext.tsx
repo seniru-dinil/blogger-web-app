@@ -6,69 +6,22 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 
 export type Role = "ROLE_PUBLISHER" | "ROLE_VISITOR";
 
-type authData = {
-  isAuthenticated: boolean;
-  role: Role[];
-  email: string;
-  id: number;
-};
-
-interface AuthContextType {
-  id: number;
-  email: string;
-  isAuthenticated: boolean;
-  role: Role[];
-  setAuth: (authData: authData) => void;
-}
-
-const AuthContext = createContext<AuthContextType>({
-  email: "",
-  isAuthenticated: false,
-  role: ["ROLE_VISITOR"],
-  setAuth: () => {},
-  id: 0,
-});
-
-export const useAuth = () => useContext(AuthContext);
-
 interface AuthProviderProps {
   children: React.ReactNode;
 }
 
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const router = useRouter();
-  const [auth, setAuth] = useState<authData>({
-    isAuthenticated: false,
-    role: ["ROLE_VISITOR"],
-    email: "",
-    id: 0,
-  });
 
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    const user_role: Role[] = JSON.parse(
-      localStorage.getItem("role") || "[]"
-    ) as Role[];
-
     if (!token) {
       router.replace("/login");
-    } else {
-      setAuth({
-        isAuthenticated: true,
-        role: user_role,
-        email: "",
-        id: 0,
-      });
     }
-
     setLoading(false);
   }, []);
-
-  useEffect(() => {
-    console.log("AUTH CHANGED", auth);
-  }, [auth]);
 
   if (loading) {
     return (
@@ -86,9 +39,5 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     );
   }
 
-  return (
-    <AuthContext.Provider value={{ ...auth, setAuth }}>
-      {children}
-    </AuthContext.Provider>
-  );
+  return <>{children}</>;
 };

@@ -3,25 +3,33 @@
 import { Button } from "@/components/ui/button";
 import MobileSidebar from "./mobile-sidebar";
 import { SquarePen } from "lucide-react";
-import { Role, useAuth } from "@/context/authContext";
+import { Role } from "@/context/authContext";
 import { usePathname, useRouter } from "next/navigation";
+import { becomePublisher } from "@/services/user.service";
+import toast from "react-hot-toast";
+import { useState } from "react";
 
 export default function Navbar() {
   const pathName = usePathname();
   const router = useRouter();
-  const { role, setAuth, email, id, isAuthenticated } = useAuth();
-  const isPublisher = role.includes("ROLE_PUBLISHER");
+  const id = Number(localStorage.getItem("id"));
+  const role: Role[] = JSON.parse(localStorage.getItem("role") || "[]");
+  const [isPublisher, setIsPublisher] = useState(
+    role.includes("ROLE_PUBLISHER")
+  );
 
-  function handleBecomePublisher() {
-    const role: Role[] = ["ROLE_PUBLISHER", "ROLE_VISITOR"];
-    localStorage.setItem("role", JSON.stringify(role));
-
-    setAuth({
-      id,
-      email,
-      isAuthenticated,
-      role,
-    });
+  async function handleBecomePublisher() {
+    try {
+      const { data } = await becomePublisher(id);
+      if (data.roles.includes("ROLE_PUBLISHER")) {
+        localStorage.setItem("role", JSON.stringify(data.roles));
+        setIsPublisher(true);
+        toast.success("you can now publish");
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error("something went wrong");
+    }
   }
 
   function handleWrite() {

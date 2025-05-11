@@ -5,5 +5,8 @@ import User from "@/model/user.model";
 export const createUser = (user: User) =>
   api.post(URL.USERS.CREATE_USER, {
     ...user,
-    roles: ["ROLE_VISITOR", "ROLE_PUBLISHER"],
+    roles: ["ROLE_VISITOR"],
   });
+
+export const becomePublisher = (id: number) =>
+  api.post(`${URL.USERS.BECOME_PUBLISHER}/${id}`);

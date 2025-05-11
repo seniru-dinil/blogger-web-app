@@ -5,10 +5,9 @@ import TitleForm from "../_components/title-form";
 import DescriptionForm from "../_components/description-form";
 import { z } from "zod";
 import { descriptionSchema, titleSchema } from "@/schema/schema";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import toast from "react-hot-toast";
-import { useAuth } from "@/context/authContext";
 import { createArticle } from "@/services/article.service";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
@@ -18,7 +17,9 @@ export default function CreateArticle() {
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
   const [errors, setErrors] = useState<{} | null>(null);
-  const { id, email, role } = useAuth();
+  const email = localStorage.getItem("email") || "";
+  const id = Number(localStorage.getItem("id")) || 0;
+  const role = JSON.parse(localStorage.getItem("role") || "[]");
 
   const handleTitleFormSubmit = (values: z.infer<typeof titleSchema>) => {
     setTitle(values.title);

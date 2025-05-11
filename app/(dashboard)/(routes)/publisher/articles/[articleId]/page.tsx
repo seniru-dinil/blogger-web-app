@@ -1,6 +1,6 @@
 "use client";
 
-import { Role, useAuth } from "@/context/authContext";
+import { Role } from "@/context/authContext";
 import Article from "@/model/article.model";
 import { getArticle } from "@/services/article.service";
 import { redirect, useParams, useRouter } from "next/navigation";

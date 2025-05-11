@@ -8,7 +8,7 @@ import {
   UserRoundPen,
 } from "lucide-react";
 import SideBarItem from "./sidebar-item";
-import { useAuth } from "@/context/authContext";
+import { Role } from "@/context/authContext";
 
 const publisherRoutes = [
   {
@@ -68,7 +68,7 @@ const userRoutes = [
 ];
 
 export default function SideBarRoutes() {
-  const { role } = useAuth();
+  const role: Role[] = JSON.parse(localStorage.getItem("role") || "[]");
   const routes = role.includes("ROLE_PUBLISHER") ? publisherRoutes : userRoutes;
   return (
     <div className="grid  w-full h-fit">

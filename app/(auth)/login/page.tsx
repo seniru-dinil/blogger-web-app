@@ -18,7 +18,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Loader2 } from "lucide-react";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
-import { Role, useAuth } from "@/context/authContext";
 import { login } from "@/services/auth.service";
 
 const formSchema = z.object({
@@ -29,7 +28,6 @@ const formSchema = z.object({
 });
 
 export default function Login() {
-  const { setAuth, email, id, isAuthenticated } = useAuth();
   const [loginError, setLoginError] = useState<string | null>(null);
   const router = useRouter();
   const form = useForm<z.infer<typeof formSchema>>({
