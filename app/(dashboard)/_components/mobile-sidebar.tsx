@@ -8,7 +8,7 @@ const MobileSidebar = () => {
       <SheetTrigger asChild className="md:hidden cursor-pointer">
         <Menu />
       </SheetTrigger>
-      <SheetContent side="left" className="">
+      <SheetContent side="left" className="" title="mobile side bar">
         <Sidebar />
       </SheetContent>
     </Sheet>
