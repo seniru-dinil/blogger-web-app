@@ -18,6 +18,7 @@ import Link from "next/link";
 import { createUser } from "@/services/user.service";
 import { useRouter } from "next/navigation";
 import toast from "react-hot-toast";
+import { Loader2 } from "lucide-react";
 
 const FormSchema = z.object({
   firstName: z.string().min(2),
@@ -40,9 +41,11 @@ export default function Register() {
     },
   });
 
+  const { isSubmitting, isValid } = form.formState;
+
   async function onSubmit(data: z.infer<typeof FormSchema>) {
     try {
-      const res = await createUser(data);
+      await createUser(data);
       toast.success("user registration successfull");
       router.replace("/login");
     } catch (error) {
@@ -53,7 +56,7 @@ export default function Register() {
   }
 
   return (
-    <div className="grid gap-7 sm:w-[350px] w-[350px] place-items-center">
+    <div className="grid gap-7 sm:w-[350px] w-[300px] place-items-center">
       <div className="text-center grid gap-7">
         <h1 className="text-3xl">Register yourself !</h1>
         <p className="opacity-30">
@@ -63,7 +66,7 @@ export default function Register() {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="w-[100%] space-y-6"
+          className="w-full space-y-6"
         >
           <FormField
             control={form.control}
@@ -111,7 +114,7 @@ export default function Register() {
               <FormItem>
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <Input placeholder="12345678" {...field} type="password" />
+                  <Input placeholder="********" {...field} type="password" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -120,9 +123,11 @@ export default function Register() {
           <Button
             type="submit"
             variant={"custom"}
-            className="cursor-pointer w-full "
+            className="cursor-pointer w-full"
+            disabled={!isValid || isSubmitting}
           >
-            Submit
+            {isSubmitting && <Loader2 className="animate-spin" />}
+            submit
           </Button>
         </form>
       </Form>
