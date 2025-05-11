@@ -12,7 +12,7 @@ export const deleteArticle = (id: number) =>
 export const updateArticle = (id: number, data: Article) =>
   api.patch(`${URL.ARTICLE.UPDATE_ARTICLE}/${id}`, data);
 
-export const getArticle = (id: number) =>
+export const getArticle = (id: number, signal: AbortSignal) =>
   api.get(`${URL.ARTICLE.GET_ARTICLE}/${id}`);
 
 export const getArticleList = () => api.get(URL.ARTICLE.GET_ARTICLES);
