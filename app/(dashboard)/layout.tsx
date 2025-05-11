@@ -1,6 +1,5 @@
 "use client ";
 
-import { AuthProvider } from "@/context/authContext";
 import React from "react";
 import Sidebar from "./_components/sidebar";
 import Navbar from "./_components/navbar";
