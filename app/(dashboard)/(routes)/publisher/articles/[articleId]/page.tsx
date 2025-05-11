@@ -23,7 +23,11 @@ export default function EditArticle() {
           router.replace("/");
         }
       } catch (erro: any) {
-        toast.error("error fetching article");
+        if (erro?.response?.status == 406) {
+          toast.error(erro?.response?.data?.message);
+          return router.push("/login");
+        }
+        toast.error(erro?.response?.data?.message);
       }
     }
     fetchArticle();
@@ -36,17 +40,23 @@ export default function EditArticle() {
     return redirect("/Unauthorized");
   }
 
-  if (article) {
-    const requiredFields = [
-      article.title,
-      article.description,
-      article.articleDataList,
-      article.category,
-      article.image,
-    ];
-    const completedFields = requiredFields.filter(Boolean).length - 1;
-    console.log(completedFields);
-    return <h1>found article </h1>;
+  if (!article) {
+    return <h1>article not found</h1>;
   }
-  return <h2>cannot find article</h2>;
+  const requiredFields = [
+    article.title,
+    article.description,
+    article.articleDataList,
+    article.category,
+    article.image,
+  ];
+  const totalFields = requiredFields.length;
+  const completedFields = requiredFields.filter(Boolean).length - 1;
+  const completionFields = `${completedFields}/${totalFields}`;
+
+  return (
+    <>
+      <p>completion tasks {completionFields}</p>
+    </>
+  );
 }

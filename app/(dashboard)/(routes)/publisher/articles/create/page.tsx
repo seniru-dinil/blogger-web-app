@@ -59,7 +59,7 @@ export default function CreateArticle() {
 
   return (
     <div className="h-full  relative">
-      <div className="max-w-5xl  flex mx-auto md:items-center justify-center flex-col h-full p-6 ">
+      <div className="max-w-5xl  flex mx-auto md:items-center justify-center sm:flex-col h-full p-6 ">
         {step === 0 && (
           <div>
             <div className="mb-7">
@@ -84,8 +84,8 @@ export default function CreateArticle() {
           </div>
         )}
         {step === 2 && (
-          <div className="grid gap-5 max-w-3xl">
-            <h2 className="sm:text-4xl text-2xl font-bold">{title}</h2>
+          <div className="grid gap-2  max-w-3xl  h-fit">
+            <h2 className="sm:text-4xl text-2xl font-bold ">{title}</h2>
             <h3 className="text-md text-slate-600">{description}</h3>
             <Button
               disabled={
