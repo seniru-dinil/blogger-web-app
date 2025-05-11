@@ -8,14 +8,7 @@ export default interface Article {
   description: string;
   authorId: number;
   authorName: string;
-  category?:
-    | "TECH"
-    | "JAVA"
-    | "PROGRAMMING"
-    | "LIFESTYLE"
-    | "TRAVEL"
-    | "TUTORIALS"
-    | "SPRING BOOT ";
+  category?: Category;
   articleDataList?: ArticleData[];
   createdAt?: string;
   updatedAt?: string;
@@ -27,3 +20,15 @@ export default interface Article {
   isPremium?: boolean;
   image?: Image;
 }
+
+type Category = {
+  id?: number;
+  name:
+    | "TECH"
+    | "JAVA"
+    | "PROGRAMMING"
+    | "LIFESTYLE"
+    | "TRAVEL"
+    | "TUTORIALS"
+    | "SPRING BOOT ";
+};
