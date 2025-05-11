@@ -6,18 +6,27 @@ import React, { createContext, useContext, useEffect, useState } from "react";
 
 export type Role = "ROLE_PUBLISHER" | "ROLE_VISITOR";
 
-type authData = { isAuthenticated: boolean; role: Role[] };
-
-interface AuthContextType {
+type authData = {
   isAuthenticated: boolean;
   role: Role[];
-  setAuth: (authData: { isAuthenticated: boolean; role: Role[] }) => void;
+  email: string;
+  id: number;
+};
+
+interface AuthContextType {
+  id: number;
+  email: string;
+  isAuthenticated: boolean;
+  role: Role[];
+  setAuth: (authData: authData) => void;
 }
 
 const AuthContext = createContext<AuthContextType>({
+  email: "",
   isAuthenticated: false,
   role: ["ROLE_VISITOR"],
   setAuth: () => {},
+  id: 0,
 });
 
 export const useAuth = () => useContext(AuthContext);
@@ -31,7 +40,10 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [auth, setAuth] = useState<authData>({
     isAuthenticated: false,
     role: ["ROLE_VISITOR"],
+    email: "",
+    id: 0,
   });
+
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -46,6 +58,8 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       setAuth({
         isAuthenticated: true,
         role: user_role,
+        email: "",
+        id: 0,
       });
     }
 
