@@ -1,5 +1,5 @@
 export default interface Comment {
-  actorId: number;
+  id?: number;
   content: string;
-  createdAt?: string;
+  actorId?: number;
 }
