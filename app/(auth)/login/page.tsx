@@ -49,15 +49,12 @@ export default function Login() {
         email: values.username,
         password: values.password,
       });
+
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("role", JSON.stringify(response.data.roles));
       localStorage.setItem("id", response.data.id);
-      setAuth({
-        email: response.data.email,
-        id: response.data.id,
-        isAuthenticated: true,
-        role: response.data.roles,
-      });
+      localStorage.setItem("email", response.data.email);
+
       router.replace("/");
     } catch (error: any) {
       const message =
