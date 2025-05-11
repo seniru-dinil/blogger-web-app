@@ -10,18 +10,22 @@ import ImageForm from "../_components/image-form";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
-import { Progress } from "@/components/ui/progress";
 import toast from "react-hot-toast";
 import { useAuth } from "@/context/authContext";
+import { createArticle } from "@/services/article.service";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 
 export default function CreateArticle() {
   const router = useRouter();
   const [step, setStep] = useState(0);
+  const { role } = useAuth();
   const [isArticleImageLoading, setIsArticleImageLoading] = useState(false);
   const [imgUrl, setImgUrl] = useState<string | null>(null);
   const [title, setTitle] = useState<string | null>(null);
   const [description, setDescription] = useState<string | null>(null);
   const [fileKey, setFileKey] = useState<string | null>(null);
+  const [errors, setErrors] = useState<{} | null>(null);
+  const { id, email } = useAuth();
 
   useEffect(() => {
     setIsArticleImageLoading(false);
@@ -62,21 +66,35 @@ export default function CreateArticle() {
     }
   }
 
-  function handleCreateArticle() {
-    toast.success("article created successfull!");
-    router.replace("/publisher/articles/4");
+  async function handleCreateArticle() {
+    setErrors(null);
+    try {
+      await createArticle({
+        title: title,
+        shortDescription: description,
+        authorId: id,
+        imageUrl: imgUrl,
+        authorName: email,
+      });
+      toast.success("article created successfull");
+      router.replace("/publisher/articles/4");
+    } catch (error: any) {
+      if (error.response?.status === 400) {
+        setErrors(error.response.data);
+      } else {
+        setErrors({
+          message: "something went wront ",
+        });
+      }
+    }
   }
 
-  const steps = ["Title", "Description", "Image", "Preview"];
-  const progress = ((step + 1) / steps.length) * 100;
-
-  const { role } = useAuth();
   if (!role.includes("ROLE_PUBLISHER")) {
     return redirect("/Unauthorized");
   }
 
   return (
-    <div className="h-full">
+    <div className="h-full  relative">
       <div className="max-w-5xl  flex mx-auto md:items-center justify-center h-full p-6 ">
         {step === 0 && (
           <div>
@@ -143,7 +161,7 @@ export default function CreateArticle() {
             <h1 className="text-2xl font-semibold text-slate-600">
               Preview of your base setup for article
             </h1>
-            <div className="flex gap-10  md:flex-row flex-col justify-center bg-slate-100 p-6 rounded-md ">
+            <div className="flex gap-10  lg:flex-row flex-col justify-center bg-slate-100 p-6 rounded-md ">
               <div className="space-y-4">
                 <h2 className="md:text-4xl text-3xl font-extrabold text-slate-800  ">
                   {title}
@@ -170,6 +188,14 @@ export default function CreateArticle() {
           </div>
         )}
       </div>
+      {errors && (
+        <Alert variant="destructive" className="bg-red-100 w-1/2  absolute ">
+          <AlertTitle>Error</AlertTitle>
+          {Object.entries(errors).map(([field, message]) => (
+            <AlertDescription key={field}>{String(message)}</AlertDescription>
+          ))}
+        </Alert>
+      )}
     </div>
   );
 }
