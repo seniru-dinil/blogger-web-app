@@ -9,14 +9,17 @@ import { usePathname, useRouter } from "next/navigation";
 export default function Navbar() {
   const pathName = usePathname();
   const router = useRouter();
-  const { role, setAuth } = useAuth();
+  const { role, setAuth, email, id, isAuthenticated } = useAuth();
   const isPublisher = role.includes("ROLE_PUBLISHER");
+
   function handleBecomePublisher() {
     const role: Role[] = ["ROLE_PUBLISHER", "ROLE_VISITOR"];
     localStorage.setItem("role", JSON.stringify(role));
 
     setAuth({
-      isAuthenticated: true,
+      id,
+      email,
+      isAuthenticated,
       role,
     });
   }
