@@ -1,10 +1,10 @@
 "use client";
 
-import { useAuth } from "@/context/authContext";
+import { Role } from "@/context/authContext";
 import { redirect } from "next/navigation";
 
 export default function PublisherArticles() {
-  const { role } = useAuth();
+  const role: Role[] = JSON.parse(localStorage.getItem("role") || "[]");
   if (!role.includes("ROLE_PUBLISHER")) {
     return redirect("/Unauthorized");
   }

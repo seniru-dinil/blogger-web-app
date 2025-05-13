@@ -21,14 +21,21 @@ export default interface Article {
   image?: Image;
 }
 
-type Category = {
+export type Category = {
   id?: number;
-  name:
-    | "TECH"
-    | "JAVA"
-    | "PROGRAMMING"
-    | "LIFESTYLE"
-    | "TRAVEL"
-    | "TUTORIALS"
-    | "SPRING BOOT ";
+  name: CategoryType;
 };
+
+export type CategoryType =
+  | "TECH"
+  | "JAVA"
+  | "PROGRAMMING"
+  | "LIFESTYLE"
+  | "TRAVEL"
+  | "TUTORIALS"
+  | "SPRING BOOT ";
+
+export interface CategoryOption {
+  label: string;
+  value: CategoryType;
+}

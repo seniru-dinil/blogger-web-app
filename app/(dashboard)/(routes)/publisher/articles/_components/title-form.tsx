@@ -1,7 +1,7 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { z } from "zod";
 import { Button } from "@/components/ui/button";
 import {
@@ -31,6 +31,9 @@ export default function TitleForm({ initialData, onSubmit }: TitleFormProps) {
 
   const { isSubmitting, isValid } = form.formState;
 
+  const currentTitle = useWatch({ control: form.control, name: "title" });
+  const hasChanged = initialData !== undefined && currentTitle !== initialData;
+
   function handleSubmit(values: z.infer<typeof titleSchema>) {
     onSubmit(values);
     handleDiscard();
@@ -43,36 +46,47 @@ export default function TitleForm({ initialData, onSubmit }: TitleFormProps) {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-5">
+      <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-5 ">
         <FormField
           control={form.control}
           name="title"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Article title</FormLabel>
               <FormControl>
                 <Input placeholder="" {...field} disabled={isSubmitting} />
               </FormControl>
-              <FormDescription>
-                eg: Spring boot makes our life easier
-              </FormDescription>
+              {!initialData && (
+                <FormDescription>
+                  eg: Spring boot makes our life easier
+                </FormDescription>
+              )}
               <FormMessage />
             </FormItem>
           )}
         />
-        <div className="flex gap-5">
+        {initialData ? (
           <Button
-            type="button"
-            variant={"ghost"}
-            onClick={handleDiscard}
-            disabled={isSubmitting || !isValid}
+            type="submit"
+            disabled={!isValid || isSubmitting || !hasChanged}
+            className="ml-auto"
           >
-            discard
+            Update
           </Button>
-          <Button type="submit" disabled={!isValid || isSubmitting}>
-            Done
-          </Button>
-        </div>
+        ) : (
+          <div className="flex gap-5">
+            <Button
+              type="button"
+              variant={"ghost"}
+              onClick={handleDiscard}
+              disabled={isSubmitting || !isValid}
+            >
+              discard
+            </Button>
+            <Button type="submit" disabled={!isValid || isSubmitting}>
+              Done
+            </Button>
+          </div>
+        )}
       </form>
     </Form>
   );

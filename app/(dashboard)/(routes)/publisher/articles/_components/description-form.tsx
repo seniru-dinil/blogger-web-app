@@ -11,7 +11,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { descriptionSchema } from "@/schema/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { useForm, useWatch } from "react-hook-form";
 import { z } from "zod";
 
 interface DescriptionFormProps {
@@ -36,6 +36,12 @@ export default function DescriptionForm({
   }
 
   const { isSubmitting, isValid } = form.formState;
+  const currentDescription = useWatch({
+    control: form.control,
+    name: "description",
+  });
+  const hasChanged =
+    initialData !== undefined && currentDescription !== initialData;
 
   const handleDiscard = () => {
     if (initialData) {
@@ -52,30 +58,41 @@ export default function DescriptionForm({
           name="description"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Article Description</FormLabel>
               <FormControl>
                 <Textarea placeholder="" {...field} disabled={isSubmitting} />
               </FormControl>
-              <FormDescription>
-                Give a short description about your article
-              </FormDescription>
+              {!initialData && (
+                <FormDescription>
+                  give a short description about your article
+                </FormDescription>
+              )}
               <FormMessage />
             </FormItem>
           )}
         />
-        <div className="flex gap-5">
+        {initialData ? (
           <Button
-            type="button"
-            variant={"ghost"}
-            onClick={handleDiscard}
-            disabled={isSubmitting || !isValid}
+            type="submit"
+            disabled={!isValid || isSubmitting || !hasChanged}
+            className="ml-auto"
           >
-            discard
+            Update
           </Button>
-          <Button type="submit" disabled={!isValid || isSubmitting}>
-            Done
-          </Button>
-        </div>
+        ) : (
+          <div className="flex gap-5">
+            <Button
+              type="button"
+              variant={"ghost"}
+              onClick={handleDiscard}
+              disabled={isSubmitting || !isValid}
+            >
+              discard
+            </Button>
+            <Button type="submit" disabled={!isValid || isSubmitting}>
+              Done
+            </Button>
+          </div>
+        )}
       </form>
     </Form>
   );

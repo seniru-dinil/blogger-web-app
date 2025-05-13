@@ -26,4 +26,7 @@ export const URL = {
     GET_USER: "/api/users",
     BECOME_PUBLISHER: "/api/users",
   },
+  CATEGORY: {
+    GET_CATEGORIES: "/api/articles/category/list",
+  },
 };

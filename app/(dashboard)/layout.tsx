@@ -15,8 +15,10 @@ export default function DashboardLayout({
         <Sidebar />
       </div>
       <div className="w-full h-full  flex flex-col">
-        <Navbar />
-        <div className="h-full">{children}</div>
+        <div>
+          <Navbar />
+        </div>
+        <div className="h-full overflow-y-auto">{children}</div>
       </div>
     </div>
   );
