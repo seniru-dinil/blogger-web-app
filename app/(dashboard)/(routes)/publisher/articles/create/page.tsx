@@ -9,12 +9,14 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { createArticle } from "@/services/article.service";
 import { Button } from "@/components/ui/button";
+import { Loader } from "lucide-react";
 
 export default function CreateArticle() {
   const router = useRouter();
   const [step, setStep] = useState(0);
   const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>("");
+  const [isCreating, setIsCreating] = useState(false);
   const email = localStorage.getItem("email") || "";
   const id = Number(localStorage.getItem("id")) || 0;
   const role = JSON.parse(localStorage.getItem("role") || "[]");
@@ -37,6 +39,7 @@ export default function CreateArticle() {
 
   async function handleCreateArticle() {
     try {
+      setIsCreating(true);
       const { data } = await createArticle({
         authorId: id,
         authorName: email,
@@ -47,13 +50,17 @@ export default function CreateArticle() {
       setTitle("");
       toast.success("article created successfull");
       router.replace(`/publisher/articles/${data.id}`);
-    } catch (error: any) {
-      if (error.response?.status === 400) {
-        console.log(error.response);
-        toast.error(error.response?.message);
+    } catch (erro: any) {
+      console.log(erro);
+      if (erro?.code == "ERR_NETWORK") {
+        toast.error(erro?.message);
+      } else if (erro?.response?.status == 500) {
+        toast.error("internal server error");
       } else {
-        toast.error("article create failed");
+        toast.error(erro?.response?.data?.message);
       }
+    } finally {
+      setIsCreating(false);
     }
   }
 
@@ -89,12 +96,22 @@ export default function CreateArticle() {
             <h3 className="text-md text-slate-600">{description}</h3>
             <Button
               disabled={
-                step !== 2 || description.length == 0 || title.length == 0
+                step !== 2 ||
+                description.length == 0 ||
+                title.length == 0 ||
+                isCreating
               }
               onClick={handleCreateArticle}
               className="mt-10 sm:w-1/2 xl:w-2/5 w-full "
             >
-              create article
+              {isCreating ? (
+                <div className="flex justify-center gap-3 items-center">
+                  <Loader className="animate-spin" />
+                  <p>creating</p>
+                </div>
+              ) : (
+                <p>create article</p>
+              )}
             </Button>
           </div>
         )}
