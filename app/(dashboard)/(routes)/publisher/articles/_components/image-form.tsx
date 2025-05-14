@@ -42,7 +42,7 @@ export default function ImageForm({ initialData, onSubmit }: ImageFormProps) {
               <ImageIcon className="h-10 w-10 text-slate-500" />
             </div>
           ) : (
-            <div className="relative aspect-auto  h-60">
+            <div className="relative aspect-auto bg-red-200 h-60 ">
               <Image
                 alt="article image"
                 src={initialData}

@@ -116,6 +116,7 @@ export default function EditArticle() {
           ...article,
           title: data.title,
         });
+      toast.success("Title updated");
     } catch (erro: any) {
       if (erro?.code == "ERR_NETWORK") {
         toast.error(erro?.message);
@@ -142,11 +143,12 @@ export default function EditArticle() {
           ...article,
           description: data.description,
         });
+      toast.success("Description updated");
     } catch (erro: any) {
       if (erro?.code == "ERR_NETWORK") {
         toast.error(erro?.message);
       } else if (erro?.response?.status == 500) {
-        toast.error("internal server error");
+        toast.error("Internal server error");
       } else {
         toast.error(erro?.response?.data?.message);
       }
@@ -163,8 +165,9 @@ export default function EditArticle() {
       setArticle({
         ...data,
       });
+      toast.success("Image updated");
     } catch (error) {
-      console.log(error);
+      toast.error("Image update failed");
     }
   }
 
@@ -176,8 +179,9 @@ export default function EditArticle() {
       setArticle({
         ...data,
       });
+      toast.success("Category updated");
     } catch (error) {
-      console.log(error);
+      toast.error("Category update failed");
     }
   }
 
@@ -190,18 +194,19 @@ export default function EditArticle() {
             Complete all fields {completionText}
           </p>
         </div>
-        <div className="mt-10">
-          <div className="flex items-center gap-2 h-fit mb-10">
-            <div className="bg-sky-200/20 p-[0.5em] rounded-full">
-              <Columns3Cog
-                className="text-sky-600 "
-                size={30}
-                strokeWidth={2}
-              />
+
+        <div className="grid md:grid-cols-2 grid-cols-1 gap-5  w-full mt-15">
+          <div>
+            <div className="flex items-center gap-2 h-fit mb-10">
+              <div className="bg-sky-200/20 p-[0.5em] rounded-full">
+                <Columns3Cog
+                  className="text-sky-600 "
+                  size={30}
+                  strokeWidth={2}
+                />
+              </div>
+              <h2 className="text-2xl font-medium">Customize your Article</h2>
             </div>
-            <h2 className="text-2xl font-medium">Customize your Article</h2>
-          </div>
-          <div className="grid md:grid-cols-2 grid-cols-1 gap-5  w-full">
             <div className="space-y-5">
               <div className="bg-slate-100 p-4 rounded-sm grid gap-3 ">
                 <div className="flex justify-between items-center">
