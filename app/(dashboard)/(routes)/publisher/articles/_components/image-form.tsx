@@ -14,8 +14,8 @@ export default function ImageForm({ initialData, onSubmit }: ImageFormProps) {
 
   return (
     <div className="bg-slate-100 p-4 rounded-sm">
-      <div className="flex flex-col">
-        <div className="flex justify-between items-center mb-2">
+      <div className="flex flex-col gap-2">
+        <div className="flex justify-between items-center ">
           <p className="p-0 m-0 font-medium ">Article image</p>
           <Button
             variant={"ghost"}
@@ -42,7 +42,7 @@ export default function ImageForm({ initialData, onSubmit }: ImageFormProps) {
               <ImageIcon className="h-10 w-10 text-slate-500" />
             </div>
           ) : (
-            <div className="relative aspect-auto bg-red-200 h-60 ">
+            <div className="relative aspect-auto h-60 ">
               <Image
                 alt="article image"
                 src={initialData}

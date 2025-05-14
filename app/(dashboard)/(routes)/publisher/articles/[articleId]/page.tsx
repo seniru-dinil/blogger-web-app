@@ -9,7 +9,7 @@ import {
   updateArticleImage,
   updateArticleTitle,
 } from "@/services/article.service";
-import { Columns3Cog, SquarePen } from "lucide-react";
+import { Columns3Cog, ListCollapse, SquarePen } from "lucide-react";
 import { redirect, useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -21,6 +21,10 @@ import { Skeleton } from "@/components/ui/skeleton";
 import DescriptionForm from "../_components/description-form";
 import ImageForm from "../_components/image-form";
 import ComboboxForm from "../_components/combobox-form";
+import TextEditor from "@/components/ui/TextEditor/editor";
+import TextEditorForm from "../_components/textEditor-form";
+import ArticleDataListForm from "../_components/articleData-form";
+import ArticleDataForm from "../_components/articleData-form";
 
 export default function EditArticle() {
   const [loading, setIsLoading] = useState<boolean>(false);
@@ -31,6 +35,12 @@ export default function EditArticle() {
   const [isTitleEditing, setIsTitleEditing] = useState<boolean>(false);
   const [isDescriptionEditing, setIsDescriptionEditing] =
     useState<boolean>(false);
+
+  useEffect(() => {
+    if (!role.includes("ROLE_PUBLISHER")) {
+      return redirect("/Unauthorized");
+    }
+  }, []);
 
   useEffect(() => {
     const controller = new AbortController();
@@ -48,7 +58,7 @@ export default function EditArticle() {
         if (erro?.code == "ERR_NETWORK") {
           toast.error(erro?.message);
         } else if (erro?.response?.status == 500) {
-          toast.error("internal server error");
+          toast.error("Internal server error");
         } else if (erro?.response?.status == 406) {
           toast.error(erro?.response?.data?.message);
           return router.replace("/login ");
@@ -65,12 +75,6 @@ export default function EditArticle() {
       controller.abort();
     };
   }, [articleId]);
-
-  useEffect(() => {
-    if (!role.includes("ROLE_PUBLISHER")) {
-      return redirect("/Unauthorized");
-    }
-  }, []);
 
   if (loading) {
     return (
@@ -102,7 +106,7 @@ export default function EditArticle() {
     article.image,
   ];
   const totalFields = requiredFields.length;
-  const completedFields = requiredFields.filter(Boolean).length - 1;
+  const completedFields = requiredFields.filter(Boolean).length;
   const completionText = `${completedFields}/${totalFields}`;
 
   async function handleTitleFormSubmit(values: z.infer<typeof titleSchema>) {
@@ -187,7 +191,7 @@ export default function EditArticle() {
 
   return (
     <>
-      <div className="p-6  flex flex-col  justify-center">
+      <div className="p-5  flex flex-col  justify-center">
         <div className="grid">
           <h1 className="text-2xl font-medium">Article Setup</h1>
           <p className="text-slate-700 text-sm">
@@ -195,9 +199,9 @@ export default function EditArticle() {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-2 grid-cols-1 gap-5  w-full mt-15">
+        <div className="grid md:grid-cols-2 grid-cols-1 gap-9 md:gap-5  w-full mt-13">
           <div>
-            <div className="flex items-center gap-2 h-fit mb-10">
+            <div className="flex items-center gap-2 h-fit mb-5">
               <div className="bg-sky-200/20 p-[0.5em] rounded-full">
                 <Columns3Cog
                   className="text-sky-600 "
@@ -278,7 +282,22 @@ export default function EditArticle() {
               )}
             </div>
           </div>
-          {/* ////////////// */}
+          <div>
+            <div className="flex items-center gap-2 h-fit mb-5">
+              <div className="bg-sky-200/20 p-[0.5em] rounded-full">
+                <ListCollapse
+                  className="text-sky-600 "
+                  size={30}
+                  strokeWidth={2}
+                />
+              </div>
+              <h2 className="text-2xl font-medium">Article Data</h2>
+            </div>
+            <ArticleDataForm
+              articleDataList={article.articleDataList}
+              setArticle={setArticle}
+            />
+          </div>
         </div>
       </div>
     </>

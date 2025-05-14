@@ -14,7 +14,7 @@ const descriptionSchema = z.object({
 const titleSchema = z.object({
   title: z
     .string()
-    .min(10, {
+    .min(8, {
       message: "title should containt at lest 10 characters",
     })
     .max(150, {

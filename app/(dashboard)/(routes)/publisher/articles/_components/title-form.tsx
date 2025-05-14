@@ -55,11 +55,6 @@ export default function TitleForm({ initialData, onSubmit }: TitleFormProps) {
               <FormControl>
                 <Input placeholder="" {...field} disabled={isSubmitting} />
               </FormControl>
-              {!initialData && (
-                <FormDescription>
-                  eg: Spring boot makes our life easier
-                </FormDescription>
-              )}
               <FormMessage />
             </FormItem>
           )}
