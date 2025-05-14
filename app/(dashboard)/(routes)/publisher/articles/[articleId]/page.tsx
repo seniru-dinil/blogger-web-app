@@ -3,13 +3,16 @@
 import { Role } from "@/context/authContext";
 import Article, { CategoryType } from "@/model/article.model";
 import {
+  deleteArticle,
   getArticle,
+  publishArticle,
+  unpublishArticle,
   updateArticleCategory,
   updateArticleDescription,
   updateArticleImage,
   updateArticleTitle,
 } from "@/services/article.service";
-import { Columns3Cog, ListCollapse, SquarePen } from "lucide-react";
+import { Columns3Cog, ListCollapse, SquarePen, Trash } from "lucide-react";
 import { redirect, useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
@@ -101,13 +104,13 @@ export default function EditArticle() {
   const requiredFields = [
     article.title,
     article.description,
-    article.articleDataList,
+    article.articleDataList?.length == 0 ? null : article.articleDataList,
     article.category,
     article.image,
   ];
   const totalFields = requiredFields.length;
   const completedFields = requiredFields.filter(Boolean).length;
-  const completionText = `${completedFields}/${totalFields}`;
+  const completionText = `(${completedFields}/${totalFields})`;
 
   async function handleTitleFormSubmit(values: z.infer<typeof titleSchema>) {
     try {
@@ -189,14 +192,78 @@ export default function EditArticle() {
     }
   }
 
+  async function handlePublishArticle() {
+    try {
+      const { data } = await publishArticle(article?.id || -5);
+      setArticle((prev) => {
+        if (!prev) return prev;
+        return {
+          ...prev,
+          isActive: true,
+        };
+      });
+      toast.success("Article has been published");
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function handleUnpublishArticle() {
+    try {
+      const { data } = await unpublishArticle(article?.id || -5);
+      setArticle((prev) => {
+        if (!prev) return prev;
+        return {
+          ...prev,
+          isActive: true,
+        };
+      });
+      toast.success("Article has been unpublished");
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async function handleDeleteArticle() {
+    try {
+      const { data } = await deleteArticle(article?.id || -4);
+      toast.success("Article deleted");
+      setArticle(null);
+    } catch (erro) {
+      console.log(erro);
+      toast.error("Article delete failed");
+    }
+  }
+
   return (
     <>
       <div className="p-5  flex flex-col  justify-center">
-        <div className="grid">
-          <h1 className="text-2xl font-medium">Article Setup</h1>
-          <p className="text-slate-700 text-sm">
-            Complete all fields {completionText}
-          </p>
+        <div className="flex justify-between items-center">
+          <div className="grid">
+            <h1 className="text-2xl font-medium">Article Setup</h1>
+            <p className="text-slate-700 text-sm">
+              Complete all fields {completionText}
+            </p>
+          </div>
+          <div className="flex items-center gap-3">
+            <Button
+              size={"sm"}
+              variant={"outline"}
+              disabled={totalFields != completedFields}
+              onClick={
+                article.isActive ? handleUnpublishArticle : handlePublishArticle
+              }
+            >
+              {article.isActive ? <p>Unpublish</p> : <p>Publish</p>}
+            </Button>
+            <Button
+              size={"sm"}
+              variant={"destructive"}
+              onClick={handleDeleteArticle}
+            >
+              <Trash />
+            </Button>
+          </div>
         </div>
 
         <div className="grid md:grid-cols-2 grid-cols-1 gap-9 md:gap-5  w-full mt-13">
