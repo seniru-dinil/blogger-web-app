@@ -81,6 +81,11 @@ export const MenuBar = ({ editor }: any) => {
       onClick: () => editor.chain().focus().toggleHighlight().run(),
       preesed: editor.isActive("highlight"),
     },
+    {
+      icon: <CodeXml className="size-4" />,
+      onClick: () => editor.chain().focus().toggleCode().run(),
+      preesed: editor.isActive("code"),
+    },
   ];
 
   return (
