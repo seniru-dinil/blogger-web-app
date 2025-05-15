@@ -48,6 +48,7 @@ export default function CreateArticle() {
       });
       setDescription("");
       setTitle("");
+      setStep((prev) => prev + 1);
       toast.success("article created successfull");
       router.replace(`/publisher/articles/${data.id}`);
     } catch (erro: any) {
@@ -66,16 +67,19 @@ export default function CreateArticle() {
 
   return (
     <div className="h-full relative">
-      <button
-        className="absolute top-4 left-4 sm:top-6 sm:left-6 z-10 "
-        onClick={() => router.back()}
-      >
-        <ArrowLeft
-          className="cursor-pointer text-slate-600"
-          size={20}
-          strokeWidth={2}
-        />
-      </button>
+      {step <= 2 && (
+        <button
+          className="absolute top-4 left-4 sm:top-6 sm:left-6 z-10 "
+          onClick={() => router.back()}
+        >
+          <ArrowLeft
+            className="cursor-pointer text-slate-600"
+            size={20}
+            strokeWidth={2}
+          />
+        </button>
+      )}
+
       <div className="max-w-5xl  flex mx-auto md:items-center justify-center sm:flex-col h-full  p-4 sm:p-6 pt-16 sm:pt-20 ">
         {step === 0 && (
           <div>
