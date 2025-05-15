@@ -237,7 +237,7 @@ export default function EditArticle() {
 
   return (
     <>
-      <div className="p-5  flex flex-col  justify-center">
+      <div className="p-5">
         <div className="flex justify-between items-center">
           <div className="grid">
             <h1 className="text-2xl font-medium">Article Setup</h1>

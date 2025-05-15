@@ -16,6 +16,8 @@ import { getReorderDestinationIndex } from "@atlaskit/pragmatic-drag-and-drop-hi
 import { reorder } from "@atlaskit/pragmatic-drag-and-drop/reorder";
 import { combine } from "@atlaskit/pragmatic-drag-and-drop/combine";
 import { Grip, GripVertical, Pencil } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
 interface ArticleDataListProps {
   articleDataList: ArticleData[];
@@ -101,6 +103,7 @@ export default function ArticleDataList({
     </div>
   );
 }
+
 function DraggableArticle({
   data,
   instanceId,
@@ -108,6 +111,7 @@ function DraggableArticle({
   data: DraggableArticleData;
   instanceId: symbol;
 }) {
+  const router = useRouter();
   const containerRef = useRef<HTMLDivElement>(null);
   const handleRef = useRef<HTMLDivElement>(null);
 
@@ -151,7 +155,7 @@ function DraggableArticle({
   return (
     <div
       ref={containerRef}
-      className="bg-sky-200/20 border border-sky-200 px-3 py-3 rounded-sm w-full transition-shadow hover:shadow flex gap-3 justify-between items-center"
+      className="bg-sky-200/20 border border-sky-200 px-2 py-[0.2em] rounded-sm w-full transition-shadow hover:shadow flex gap-3 justify-between items-center"
     >
       <div className="flex items-center gap-3">
         {/* This is the draggable handle */}
@@ -163,10 +167,17 @@ function DraggableArticle({
         </h3>
       </div>
       <div className="flex items-center gap-3">
-        <p className="bg-sky-700 text-white rounded-full text-xs font-bold px-3 py-1">
-          Drafted
+        <p className="bg-sky-700 text-white rounded-full text-[0.70em] font-bold px-3 py-1">
+          Draft
         </p>
-        <Pencil size={14} className="text-sky-800" />
+        <Button
+          variant={"ghost"}
+          onClick={() =>
+            router.push(`/publisher/articles/articleData/${data.id}`)
+          }
+        >
+          <Pencil size={14} className="text-sky-800" />
+        </Button>
       </div>
     </div>
   );
