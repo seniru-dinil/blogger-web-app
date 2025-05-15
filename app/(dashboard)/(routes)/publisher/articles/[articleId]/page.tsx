@@ -104,7 +104,7 @@ export default function EditArticle() {
   const requiredFields = [
     article.title,
     article.description,
-    article.articleDataList?.length == 0 ? null : article.articleDataList,
+    article.articleDataList?.some((data) => data.isActive),
     article.category,
     article.image,
   ];
