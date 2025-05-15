@@ -59,7 +59,12 @@ export default function DescriptionForm({
           render={({ field }) => (
             <FormItem>
               <FormControl>
-                <Textarea placeholder="" {...field} disabled={isSubmitting} />
+                <Textarea
+                  placeholder=""
+                  {...field}
+                  disabled={isSubmitting}
+                  className="min-h-40"
+                />
               </FormControl>
               {!initialData && (
                 <FormDescription>
