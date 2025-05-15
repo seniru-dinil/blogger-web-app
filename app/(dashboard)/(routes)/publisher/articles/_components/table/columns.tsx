@@ -74,22 +74,39 @@ export const getColumns = (
     },
     {
       accessorKey: "category",
-      header: "Category",
+      header: () => <p className="text-center">Category</p>,
       cell: ({ row }) => {
         const cato = row.original;
         if (cato.category) {
           return (
-            <div className="border px-3 text-xs py-1 w-fit rounded-sm">
+            <div className="border px-3 text-xs py-1 w-fit rounded-sm mx-auto">
               <p className="font-medium">{cato.category.name}</p>
             </div>
           );
         }
-        return <p className="font-medium opacity-40">UNDEFINED</p>;
+        return <p className="font-medium opacity-40 text-center">UNDEFINED</p>;
+      },
+    },
+    {
+      accessorKey: "createdAt",
+      header: () => <p className="text-center">Created date</p>,
+      cell: ({ row }) => {
+        const formattedDate = new Date(
+          row.getValue("createdAt")
+        ).toLocaleString("en-US", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+          hour: "numeric",
+          minute: "2-digit",
+          hour12: true,
+        });
+        return <p className="text-center">{formattedDate}</p>;
       },
     },
     {
       accessorKey: "isActive",
-      header: () => <div>Status</div>,
+      header: () => <p className="text-left">Status</p>,
       cell: ({ row }) => {
         const isActive = row.getValue("isActive") == true;
         return (
