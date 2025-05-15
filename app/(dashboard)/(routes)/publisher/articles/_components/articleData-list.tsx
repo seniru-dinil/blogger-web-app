@@ -18,6 +18,7 @@ import { combine } from "@atlaskit/pragmatic-drag-and-drop/combine";
 import { Grip, GripVertical, Pencil } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
+import { cn } from "@/lib/utils";
 
 interface ArticleDataListProps {
   articleDataList: ArticleData[];
@@ -155,28 +156,41 @@ function DraggableArticle({
   return (
     <div
       ref={containerRef}
-      className="bg-sky-200/20 border border-sky-200 px-2 py-[0.1em] rounded-sm w-full transition-shadow hover:shadow flex gap-3 justify-between items-center"
+      className={cn(
+        "border  px-2 py-[0.1em] rounded-sm w-full transition-shadow hover:shadow flex gap-3 justify-between items-center",
+        data.isActive
+          ? "bg-sky-200/20 border-sky-200"
+          : "bg-slate-200/80 border-slate-200"
+      )}
     >
-      <div className="flex items-center gap-3">
-        {/* This is the draggable handle */}
+      <div
+        className={cn(
+          "flex items-center gap-3 ",
+          data.isActive ? "text-sky-800" : "text-slate-600"
+        )}
+      >
         <div ref={handleRef} className="cursor-grab">
-          <GripVertical size={22} className="text-sky-800" />
+          <GripVertical size={22} />
         </div>
-        <p className="text-sky-800 font-semibold text-[0.78em] uppercase">
-          {data.title}
-        </p>
+        <p className=" font-semibold text-[0.78em] uppercase">{data.title}</p>
       </div>
       <div className="flex items-center gap-3">
-        <p className="bg-sky-700 text-white rounded-full text-[0.65em] font-bold px-3 py-1">
-          Draft
-        </p>
+        {!data.isActive && (
+          <p className=" text-white rounded-full text-[0.60em] font-bold px-3 py-1 bg-slate-600">
+            Draft
+          </p>
+        )}
+
         <Button
           variant={"ghost"}
           onClick={() =>
             router.push(`/publisher/articles/articleData/${data.id}`)
           }
         >
-          <Pencil size={14} className="text-sky-800" />
+          <Pencil
+            size={14}
+            className={cn(data.isActive ? "text-sky-800" : "text-slate-600")}
+          />
         </Button>
       </div>
     </div>
