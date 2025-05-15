@@ -1,16 +1,29 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import TextEditor from "@/components/ui/TextEditor/editor";
-import { CirclePlus } from "lucide-react";
+import ArticleData from "@/model/articleData.model";
+import { updateArticleData } from "@/services/articleData.service";
 import { useState } from "react";
+import toast from "react-hot-toast";
 
-export default function TextEditorForm() {
-  const [articleData, setArticleData] = useState<string>("");
-  const [isEditing, setIsEditing] = useState<boolean>(false);
+interface TextEditorFormProps {
+  articleData: ArticleData;
+  handleDescriptionOnUpdate: (value: string) => void;
+}
 
-  function handleOnUpdate(value: string) {
-    setArticleData(value);
-  }
+export default function TextEditorForm({
+  handleDescriptionOnUpdate,
+  articleData,
+}: TextEditorFormProps) {
+  const [content, setContent] = useState<string>("");
 
-  return <div className="bg-sky-200/40  p-2 rounded-sm"></div>;
+  return (
+    <div className="space-y-5">
+      <TextEditor
+        onUpdate={(value) => setContent(value)}
+        initialData={articleData.content}
+      />
+      <Button onClick={() => handleDescriptionOnUpdate(content)}>update</Button>
+    </div>
+  );
 }
