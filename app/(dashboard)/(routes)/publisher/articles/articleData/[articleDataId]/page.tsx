@@ -7,13 +7,14 @@ import {
   getArticleData,
   updateArticleData,
 } from "@/services/articleData.service";
-import { Columns3Cog, SquarePen, Trash } from "lucide-react";
+import { Columns3Cog, Image, SquarePen, Trash } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import TitleForm from "../../_components/title-form";
 import TextEditor from "@/components/ui/TextEditor/editor";
 import TextEditorForm from "../../_components/textEditor-form";
+import ImageForm from "../../_components/image-form";
 
 export default function ArticleData() {
   const router = useRouter();
@@ -111,6 +112,20 @@ export default function ArticleData() {
       toast.error("Description update failed");
     } finally {
       setIsDescriptionEditing(false);
+    }
+  }
+
+  async function handleImageFormSubmit(url?: string) {
+    try {
+      const { data } = await updateArticleData(articleData?.id || -5, {
+        image: {
+          imageUrl: url || "",
+        },
+      });
+      setArticleData(data);
+      toast.success("Image updated");
+    } catch (error) {
+      toast.error("Image update failed");
     }
   }
 
@@ -223,7 +238,24 @@ export default function ArticleData() {
               </div>
             </div>
           </div>
-          <div>hello world</div>
+          <div>
+            <div className="flex items-center gap-2 h-fit mb-5">
+              <div className="bg-sky-200/20 p-[0.5em] rounded-full">
+                <Image className="text-sky-600 " size={30} strokeWidth={2} />
+              </div>
+              <h2 className="text-2xl font-medium">Article data image</h2>
+            </div>
+            <div>
+              {articleData.image ? (
+                <ImageForm
+                  onSubmit={handleImageFormSubmit}
+                  initialData={articleData.image.imageUrl}
+                />
+              ) : (
+                <ImageForm onSubmit={handleImageFormSubmit} />
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </>

@@ -203,6 +203,7 @@ export default function EditArticle() {
         };
       });
       toast.success("Article has been published");
+      router.push("/publisher/articles");
     } catch (error) {
       console.log(error);
     }
@@ -219,6 +220,7 @@ export default function EditArticle() {
         };
       });
       toast.success("Article has been unpublished");
+      router.push("/publisher/articles");
     } catch (error) {
       console.log(error);
     }
@@ -229,6 +231,7 @@ export default function EditArticle() {
       const { data } = await deleteArticle(article?.id || -4);
       toast.success("Article deleted");
       setArticle(null);
+      router.push("/publisher/articles");
     } catch (erro) {
       console.log(erro);
       toast.error("Article delete failed");
