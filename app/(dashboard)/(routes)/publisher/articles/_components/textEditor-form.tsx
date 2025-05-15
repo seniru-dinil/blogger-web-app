@@ -2,9 +2,7 @@
 import { Button } from "@/components/ui/button";
 import TextEditor from "@/components/ui/TextEditor/editor";
 import ArticleData from "@/model/articleData.model";
-import { updateArticleData } from "@/services/articleData.service";
 import { useState } from "react";
-import toast from "react-hot-toast";
 
 interface TextEditorFormProps {
   articleData: ArticleData;
@@ -18,7 +16,7 @@ export default function TextEditorForm({
   const [content, setContent] = useState<string>("");
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-5 ">
       <TextEditor
         onUpdate={(value) => setContent(value)}
         initialData={articleData.content}

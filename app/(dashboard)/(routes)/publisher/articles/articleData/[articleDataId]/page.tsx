@@ -229,7 +229,7 @@ export default function ArticleData() {
                   />
                 ) : articleData.content != null ? (
                   <div
-                    className="text-md text-gray-700"
+                    className="text-md text-gray-700 overflow-x-auto"
                     dangerouslySetInnerHTML={{ __html: articleData.content }}
                   />
                 ) : (

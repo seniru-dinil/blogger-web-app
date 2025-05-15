@@ -1,6 +1,7 @@
 "use client";
 import "@/components/ui/TextEditor/styles.css";
 import { Toggle } from "@/components/ui/toggle";
+
 import {
   AlignCenter,
   AlignLeft,
@@ -79,11 +80,6 @@ export const MenuBar = ({ editor }: any) => {
       icon: <Highlighter className="size-4" />,
       onClick: () => editor.chain().focus().toggleHighlight().run(),
       preesed: editor.isActive("highlight"),
-    },
-    {
-      icon: <CodeXml className="size-4" />,
-      onClick: () => editor.chain().focus().toggleCode().run(),
-      preesed: editor.isActive("code"),
     },
   ];
 
