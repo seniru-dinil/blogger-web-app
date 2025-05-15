@@ -6,4 +6,5 @@ export default interface ArticleData {
   article?: number;
   content?: string;
   image?: Image;
+  isActive?: boolean;
 }
