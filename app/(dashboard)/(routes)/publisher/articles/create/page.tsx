@@ -9,7 +9,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import { createArticle } from "@/services/article.service";
 import { Button } from "@/components/ui/button";
-import { Loader } from "lucide-react";
+import { ArrowLeft, Loader } from "lucide-react";
 
 export default function CreateArticle() {
   const router = useRouter();
@@ -65,8 +65,18 @@ export default function CreateArticle() {
   }
 
   return (
-    <div className="h-full  relative">
-      <div className="max-w-5xl  flex mx-auto md:items-center justify-center sm:flex-col h-full p-6 ">
+    <div className="h-full relative">
+      <button
+        className="absolute top-4 left-4 sm:top-6 sm:left-6 z-10 "
+        onClick={() => router.back()}
+      >
+        <ArrowLeft
+          className="cursor-pointer text-slate-600"
+          size={20}
+          strokeWidth={2}
+        />
+      </button>
+      <div className="max-w-5xl  flex mx-auto md:items-center justify-center sm:flex-col h-full  p-4 sm:p-6 pt-16 sm:pt-20 ">
         {step === 0 && (
           <div>
             <div className="mb-7">
