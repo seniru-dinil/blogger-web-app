@@ -155,19 +155,19 @@ function DraggableArticle({
   return (
     <div
       ref={containerRef}
-      className="bg-sky-200/20 border border-sky-200 px-2 py-[0.2em] rounded-sm w-full transition-shadow hover:shadow flex gap-3 justify-between items-center"
+      className="bg-sky-200/20 border border-sky-200 px-2 py-[0.1em] rounded-sm w-full transition-shadow hover:shadow flex gap-3 justify-between items-center"
     >
       <div className="flex items-center gap-3">
         {/* This is the draggable handle */}
         <div ref={handleRef} className="cursor-grab">
           <GripVertical size={22} className="text-sky-800" />
         </div>
-        <h3 className="text-sky-800 font-semibold text-sm uppercase">
+        <p className="text-sky-800 font-semibold text-[0.78em] uppercase">
           {data.title}
-        </h3>
+        </p>
       </div>
       <div className="flex items-center gap-3">
-        <p className="bg-sky-700 text-white rounded-full text-[0.70em] font-bold px-3 py-1">
+        <p className="bg-sky-700 text-white rounded-full text-[0.65em] font-bold px-3 py-1">
           Draft
         </p>
         <Button
