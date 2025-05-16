@@ -85,7 +85,7 @@ export default function Article() {
 
       <Separator className="my-10" />
 
-      <div className="space-y-10 overflow-x-hidden">
+      <div className="space-y-10 ">
         {(article.articleDataList ?? []).length > 0 ? (
           article.articleDataList?.map((articleData, idx) => (
             <div className="space-y-3" key={idx}>
