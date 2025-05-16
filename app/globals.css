@@ -198,6 +198,7 @@ code {
 
 pre {
   background: #1a1a1a;
+  overflow-x: scroll;
   border-radius: 0.5rem;
   color: #ffffff;
   font-family: "JetBrainsMono", monospace;

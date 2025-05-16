@@ -33,7 +33,7 @@ export default function Article() {
   if (!article) return;
 
   return (
-    <div className="max-w-5xl sm:py-16 py-5  mx-auto px-6  overflow-y-auto ">
+    <div className="max-w-5xl sm:py-16 py-5  mx-auto px-6 overflow-x-hidden ">
       <h4 className="text-5xl font-bold  text-slate-600 mb-10">
         {article.title}
       </h4>
@@ -101,6 +101,17 @@ export default function Article() {
                   }}
                 />
               </div>
+
+              {articleData.image?.imageUrl && (
+                <div className="w-full h-52  relative  sm:h-120 my-8 sm:my-13">
+                  <Image
+                    alt="article image"
+                    src={articleData.image?.imageUrl || ""}
+                    fill
+                    className="object-contain h-full w-full aspect-video"
+                  />
+                </div>
+              )}
             </div>
           ))
         ) : (
