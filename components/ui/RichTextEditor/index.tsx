@@ -22,6 +22,7 @@ import {
   Heading4,
   Highlighter,
   Italic,
+  Link2,
   List,
   ListOrdered,
   MessageSquareQuote,
@@ -35,6 +36,7 @@ import {
 import TextAlign from "@tiptap/extension-text-align";
 import Highlight from "@tiptap/extension-highlight";
 import { Separator } from "../separator";
+import Link from "@tiptap/extension-link";
 
 const MenuBar = () => {
   const { editor } = useCurrentEditor();
@@ -77,6 +79,28 @@ const MenuBar = () => {
         </Toggle>
         <Toggle onClick={() => editor.chain().focus().unsetAllMarks().run()}>
           <Eraser />
+        </Toggle>
+        <Toggle
+          pressed={editor.isActive("link")}
+          onClick={() => {
+            const previousUrl = editor.getAttributes("link").href;
+            const url = window.prompt("Enter URL", previousUrl || "https://");
+
+            if (url === null) return; // User cancelled
+            if (url === "") {
+              editor.chain().focus().extendMarkRange("link").unsetLink().run();
+              return;
+            }
+
+            editor
+              .chain()
+              .focus()
+              .extendMarkRange("link")
+              .setLink({ href: url })
+              .run();
+          }}
+        >
+          <Link2 />
         </Toggle>
         <Toggle
           pressed={editor.isActive("paragraph")}
@@ -219,6 +243,12 @@ const extensions = [
     types: ["heading", "paragraph"],
   }),
   Highlight,
+  Link.configure({
+    openOnClick: false, // or true if you want to open in new tab
+    HTMLAttributes: {
+      class: "text-blue-600 underline",
+    },
+  }),
 ];
 
 interface RichTextEditorProps {
