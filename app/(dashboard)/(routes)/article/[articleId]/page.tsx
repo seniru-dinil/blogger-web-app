@@ -85,20 +85,19 @@ export default function Article() {
 
       <Separator className="my-10" />
 
-      <div className="grid gap-10">
+      <div className="space-y-10 overflow-x-hidden">
         {(article.articleDataList ?? []).length > 0 ? (
           article.articleDataList?.map((articleData, idx) => (
-            <div className="space-y-3">
-              <p className="text-2xl font-semibold text-slate-700">
+            <div className="space-y-3" key={idx}>
+              <p className="text-2xl font-semibold text-slate-700 ">
                 {articleData.title}
               </p>
-              <div className="prose max-w-none" key={idx}>
+
+              <div className="break-words">
                 <div
                   className="prose max-w-none"
-                  key={idx}
                   dangerouslySetInnerHTML={{
-                    __html:
-                      articleData.content?.replace(/style="[^"]*"/g, "") || "",
+                    __html: articleData.content || "",
                   }}
                 />
               </div>

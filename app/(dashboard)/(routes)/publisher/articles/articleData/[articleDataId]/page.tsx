@@ -12,7 +12,6 @@ import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import TitleForm from "../../_components/title-form";
-import TextEditor from "@/components/ui/TextEditor/editor";
 import TextEditorForm from "../../_components/textEditor-form";
 import ImageForm from "../../_components/image-form";
 
@@ -161,7 +160,7 @@ export default function ArticleData() {
             </Button>
           </div>
         </div>
-        <div className="grid md:grid-cols-2 md:gap-5 gap-9 grid-cols-1 mt-13 w-full ">
+        <div className="grid xl:grid-cols-2 md:gap-5 gap-9 grid-cols-1 mt-13 w-full ">
           <div>
             <div className="flex items-center gap-2 h-fit mb-5">
               <div className="bg-sky-200/20 p-[0.5em] rounded-full">
@@ -203,7 +202,7 @@ export default function ArticleData() {
                 )}
               </div>
 
-              <div className="bg-slate-100 p-4 rounded-sm grid gap-3">
+              <div className="bg-slate-100 p-4 rounded-sm space-y-5">
                 <div className="flex items-center justify-between">
                   <p className="p-0 m-0 font-medium">
                     Article data description

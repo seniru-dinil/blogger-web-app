@@ -1,6 +1,6 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import TextEditor from "@/components/ui/TextEditor/editor";
+import RichTextEditor from "@/components/ui/RichTextEditor";
 import ArticleData from "@/model/articleData.model";
 import { useState } from "react";
 
@@ -16,12 +16,12 @@ export default function TextEditorForm({
   const [content, setContent] = useState<string>("");
 
   return (
-    <div className="space-y-5 ">
-      <TextEditor
-        onUpdate={(value) => setContent(value)}
-        initialData={articleData.content}
+    <>
+      <RichTextEditor
+        onUpdate={(html) => setContent(html)}
+        content={articleData.content}
       />
       <Button onClick={() => handleDescriptionOnUpdate(content)}>update</Button>
-    </div>
+    </>
   );
 }

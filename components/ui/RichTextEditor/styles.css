@@ -1,5 +1,5 @@
 /* Basic editor styles */
-.tiptap > :first-child {
+.tiptap:first-child {
   margin-top: 0;
 }
 
@@ -35,11 +35,11 @@
 }
 
 .tiptap h1 {
-  font-size: 1.4rem;
+  font-size: 2rem;
 }
 
 .tiptap h2 {
-  font-size: 1.2rem;
+  font-size: 1.5rem;
 }
 
 .tiptap h3 {
@@ -52,19 +52,18 @@
   font-size: 1rem;
 }
 
-/* Code and preformatted text styles */
 .tiptap code {
-  background-color: var(--purple-light);
+  background-color: #e0d7fa; /* light purple */
   border-radius: 0.4rem;
-  color: var(--black);
+  color: #1a1a1a; /* near black */
   font-size: 0.85rem;
   padding: 0.25em 0.3em;
 }
 
 .tiptap pre {
-  background: var(--black);
+  background: #1a1a1a;
   border-radius: 0.5rem;
-  color: var(--white);
+  color: #ffffff;
   font-family: "JetBrainsMono", monospace;
   margin: 1.5rem 0;
   padding: 0.75rem 1rem;
@@ -77,14 +76,15 @@
   padding: 0;
 }
 
+/* Blockquote and HR */
 .tiptap blockquote {
-  border-left: 3px solid var(--gray-3);
+  border-left: 3px solid #cccccc; /* light gray */
   margin: 1.5rem 0;
   padding-left: 1rem;
 }
 
 .tiptap hr {
   border: none;
-  border-top: 1px solid var(--gray-2);
+  border-top: 1px solid #e5e5e5; /* lighter gray */
   margin: 2rem 0;
 }

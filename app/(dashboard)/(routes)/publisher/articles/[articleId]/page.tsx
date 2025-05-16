@@ -24,9 +24,6 @@ import { Skeleton } from "@/components/ui/skeleton";
 import DescriptionForm from "../_components/description-form";
 import ImageForm from "../_components/image-form";
 import ComboboxForm from "../_components/combobox-form";
-import TextEditor from "@/components/ui/TextEditor/editor";
-import TextEditorForm from "../_components/textEditor-form";
-import ArticleDataListForm from "../_components/articleData-form";
 import ArticleDataForm from "../_components/articleData-form";
 
 export default function EditArticle() {
