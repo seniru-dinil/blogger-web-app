@@ -1,13 +1,13 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import MobileSidebar from "./mobile-sidebar";
 import { SquarePen } from "lucide-react";
 import { Role } from "@/context/authContext";
 import { usePathname, useRouter } from "next/navigation";
 import { becomePublisher } from "@/services/user.service";
 import toast from "react-hot-toast";
 import { useState } from "react";
+import { SidebarTrigger } from "@/components/ui/sidebar";
 
 export default function Navbar() {
   const pathName = usePathname();
@@ -37,8 +37,8 @@ export default function Navbar() {
   }
 
   return (
-    <div className="border-b-1 h-20 border-b-slate-50 flex items-center px-6 justify-between ">
-      <MobileSidebar />
+    <div className=" h-16 border-b-[1] flex items-center px-6 justify-between ">
+      <SidebarTrigger></SidebarTrigger>
       {!pathName.split("/").includes("create") &&
         (isPublisher ? (
           <Button className=" ml-auto cursor-pointer" onClick={handleWrite}>

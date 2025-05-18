@@ -171,18 +171,20 @@ export const getColumns = (
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem
+                  className="flex items-center gap-3 "
                   onClick={() =>
                     router.push(`/publisher/articles/${article.id}`)
                   }
                 >
-                  Edit Article
+                  <Pencil size={16} className="text-slate-400" />
+                  <p className="text-slate-400">Edit Article</p>
                 </DropdownMenuItem>
                 <DropdownMenuItem
                   className="flex items-center gap-3 "
                   onClick={() => setOpenDialogId(article.id || -1)}
                 >
-                  <Trash size={16} />
-                  <p>Delete Article</p>
+                  <Trash size={16} className="text-red-500" />
+                  <p className="text-red-500">Delete Article</p>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>

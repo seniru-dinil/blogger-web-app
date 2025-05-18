@@ -126,7 +126,7 @@ export default function PublisherArticles() {
   const columns = getColumns(router, handleDelete);
 
   return (
-    <div className="h-full  px-10 mt-10 ">
+    <div className="h-full  px-10 mt-10 flex justify-center ">
       <div className="container max-w-7xl">
         <DataTable columns={columns} data={safeArticleList} />
       </div>

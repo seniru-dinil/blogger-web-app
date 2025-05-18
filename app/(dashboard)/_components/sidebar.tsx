@@ -17,7 +17,7 @@ export default function Sidebar() {
     router.replace("/login");
   };
   return (
-    <div className="flex flex-col  gap-6 border-r-2 border-slate-50 pt-6   sm:w-full">
+    <div className="flex flex-col  gap-6 pt-6  bg-white sm:w-full h-full">
       <Logo />
       <SideBarRoutes />
       <Button onClick={handleLogout} className="w-3/4 mx-auto mt-auto mb-6">
