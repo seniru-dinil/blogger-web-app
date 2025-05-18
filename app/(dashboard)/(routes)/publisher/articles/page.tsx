@@ -93,7 +93,8 @@ export default function PublisherArticles() {
       );
       toast.success(data?.message);
     } catch (erro: any) {
-      toast.error("Article delete failed");
+      const message = erro?.response?.data?.message || "Article delete failed";
+      toast.error(message);
     }
   }
 
@@ -105,6 +106,10 @@ export default function PublisherArticles() {
       } catch (erro: any) {
         if (erro?.code === "ERR_NETWORK") {
           toast.error(erro?.message || "Network error");
+        } else {
+          const message =
+            erro?.response?.data?.message || "Failed to fetch articles";
+          toast.error(message);
         }
       }
     }
@@ -121,7 +126,7 @@ export default function PublisherArticles() {
   const columns = getColumns(router, handleDelete);
 
   return (
-    <div className="h-full  px-10 grid place-items-center">
+    <div className="h-full  px-10 mt-10 ">
       <div className="container max-w-7xl">
         <DataTable columns={columns} data={safeArticleList} />
       </div>

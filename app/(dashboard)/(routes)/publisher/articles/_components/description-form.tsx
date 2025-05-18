@@ -66,11 +66,6 @@ export default function DescriptionForm({
                   className="min-h-40"
                 />
               </FormControl>
-              {!initialData && (
-                <FormDescription>
-                  give a short description about your article
-                </FormDescription>
-              )}
               <FormMessage />
             </FormItem>
           )}
@@ -93,9 +88,7 @@ export default function DescriptionForm({
             >
               discard
             </Button>
-            <Button type="submit" disabled={!isValid || isSubmitting}>
-              Done
-            </Button>
+            <Button type="submit">Done</Button>
           </div>
         )}
       </form>

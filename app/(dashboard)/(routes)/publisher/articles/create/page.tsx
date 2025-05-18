@@ -116,7 +116,7 @@ export default function CreateArticle() {
                 isCreating
               }
               onClick={handleCreateArticle}
-              className="mt-10 sm:w-1/2 xl:w-2/5 w-full "
+              className="mt-10   w-80 mx-auto sm:ml-0"
             >
               {isCreating ? (
                 <div className="flex justify-center gap-3 items-center">

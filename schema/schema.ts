@@ -3,11 +3,11 @@ import { z } from "zod";
 const descriptionSchema = z.object({
   description: z
     .string()
-    .min(50, {
+    .min(10, {
       message: "description must contain more than 10 characters.",
     })
     .max(500, {
-      message: "should only contain less than 300 characters.",
+      message: "should only contain less than 500 characters.",
     }),
 });
 
