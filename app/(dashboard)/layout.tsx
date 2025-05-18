@@ -12,18 +12,14 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="h-full">
-      {/* <div className="md:flex hidden h-full w-75  ">
-        <Sidebar />
-      </div> */}
-
-      <SidebarProvider>
+    <div className="h-full ">
+      <SidebarProvider className="h-full">
         <AppSidebar />
         <div className="w-full h-full  flex flex-col">
           <div>
             <Navbar />
           </div>
-          <div className="h-full overflow-y-auto">{children}</div>
+          <div className="h-full overflow-y-auto ">{children}</div>
         </div>
       </SidebarProvider>
     </div>
