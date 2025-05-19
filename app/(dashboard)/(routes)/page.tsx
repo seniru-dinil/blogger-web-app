@@ -9,6 +9,7 @@ import { getArticleList } from "@/services/article.service";
 import Article from "@/model/article.model";
 import toast from "react-hot-toast";
 import Link from "next/link";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function Home() {
   const { open, isMobile } = useSidebar();
@@ -31,6 +32,45 @@ export default function Home() {
     fetchPublisherArticles();
   }, []);
 
+  if (!articles) {
+    return (
+      <div className="mt-10 p-4 space-y-30">
+        <div className="space-y-7">
+          <div className="flex items-center gap-4">
+            <Skeleton className="h-9 w-9 rounded-full" />
+            <Skeleton className="h-5 w-50 rounded-md" />
+          </div>
+          <div className="flex gap-6">
+            <div className="space-y-7">
+              <Skeleton className="w-150 h-20" />
+              <Skeleton className="w-120 h-30" />
+            </div>
+            <Skeleton className="rounded-md h-44 w-60" />
+          </div>
+          <div className="">
+            <Skeleton className="w-72 h-5 rounded-md" />
+          </div>
+        </div>
+        <div className="space-y-10">
+          <div className="flex items-center gap-4">
+            <Skeleton className="h-9 w-9 rounded-full" />
+            <Skeleton className="h-5 w-50 rounded-md" />
+          </div>
+          <div className="flex gap-6">
+            <div className="space-y-7">
+              <Skeleton className="w-150 h-20" />
+              <Skeleton className="w-120 h-30" />
+            </div>
+            <Skeleton className="rounded-md h-44 w-60" />
+          </div>
+          <div className="">
+            <Skeleton className="w-72 h-5 rounded-md" />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="p-4  h-full mt-10">
       <div className="flex md:flex-row flex-col justify-between h-full">
@@ -42,9 +82,7 @@ export default function Home() {
         >
           {articles ? (
             articles.map((data) => (
-              <Link href={"/article/" + data.id}>
-                <ArticleBanner key={data.id} article={data} />
-              </Link>
+              <ArticleBanner key={data.id} article={data} />
             ))
           ) : (
             <div>Loading...</div>
